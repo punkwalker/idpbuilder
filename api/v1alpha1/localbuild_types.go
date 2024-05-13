@@ -55,10 +55,11 @@ type PackageCustomization struct {
 type LocalbuildStatus struct {
 	// ObservedGeneration is the 'Generation' of the Service that was last processed by the controller.
 	// +optional
-	ObservedGeneration int64        `json:"observedGeneration,omitempty"`
-	ArgoCD             ArgoCDStatus `json:"ArgoCD,omitempty"`
-	Nginx              NginxStatus  `json:"nginx,omitempty"`
-	Gitea              GiteaStatus  `json:"gitea,omitempty"`
+	ObservedGeneration int64          `json:"observedGeneration,omitempty"`
+	ArgoCD             ArgoCDStatus   `json:"ArgoCD,omitempty"`
+	Nginx              NginxStatus    `json:"nginx,omitempty"`
+	Gitea              GiteaStatus    `json:"gitea,omitempty"`
+	AWSAgent           AWSAgentStatus `json:"awsAgent,omitempty"`
 }
 
 type GiteaStatus struct {
@@ -75,6 +76,10 @@ type ArgoCDStatus struct {
 }
 
 type NginxStatus struct {
+	Available bool `json:"available,omitempty"`
+}
+
+type AWSAgentStatus struct {
 	Available bool `json:"available,omitempty"`
 }
 

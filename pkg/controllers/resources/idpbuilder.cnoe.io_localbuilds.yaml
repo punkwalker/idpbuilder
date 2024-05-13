@@ -89,6 +89,11 @@ spec:
                   available:
                     type: boolean
                 type: object
+              awsAgent:
+                properties:
+                  available:
+                    type: boolean
+                type: object
               gitea:
                 properties:
                   adminUserSecretNameecret:

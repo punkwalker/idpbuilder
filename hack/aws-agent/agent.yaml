@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aws-agent
+  namespace: kube-system
+  labels:
+    k8s-app: aws-agent
+spec:
+  selector:
+    matchLabels:
+      name: aws-agent
+  template:
+    metadata:
+      labels:
+        name: aws-agent
+    spec:
+      hostNetwork: true
+      tolerations:
+      - operator: Exists
+      containers:
+      - name: agent
+        image: alpine:latest
+        command: ["/bin/sh", "-c", "/scripts/entrypoint.sh"]
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 200m
+            memory: 200Mi
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - NET_RAW
+          privileged: 
+        volumeMounts:
+        - name: entrypoint-script
+          mountPath: /scripts
+      volumes:
+      - name: entrypoint-script
+        configMap:
+          name: aws-agent-config
+          defaultMode: 0744
+      terminationGracePeriodSeconds: 30

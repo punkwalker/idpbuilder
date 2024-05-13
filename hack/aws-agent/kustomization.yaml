@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- agent.yaml
+generatorOptions:
+ disableNameSuffixHash: true
+configMapGenerator:
+- name: aws-agent-config
+  files:
+  - entrypoint.sh
+patches:
+- path: agent-env-patch.yaml
+  target:
+    kind: DaemonSet
+    name: aws-agent
+    namespace: kube-system
+

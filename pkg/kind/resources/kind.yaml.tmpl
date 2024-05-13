@@ -19,3 +19,7 @@ nodes:
     hostPort: {{ .HostPort }}
     protocol: TCP
   {{ end }}
+  extraMounts:
+  - hostPath: $HOME/.aws
+    containerPath: /root/.aws
+    readOnly: true

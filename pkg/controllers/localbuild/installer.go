@@ -149,6 +149,11 @@ func (e *EmbeddedInstallation) Install(ctx context.Context, req ctrl.Request, re
 								logger.V(1).Info(t.GetName(), "statefulset", t.Status.AvailableReplicas)
 								return
 							}
+						case *appsv1.DaemonSet:
+							if t.Status.CurrentNumberScheduled >= 1 {
+								logger.V(1).Info(t.GetName(), "daemonsets", t.Status.CurrentNumberScheduled)
+								return
+							}
 						}
 					}
 

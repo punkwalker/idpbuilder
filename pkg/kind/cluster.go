@@ -66,6 +66,7 @@ func (c *Cluster) getConfig() ([]byte, error) {
 		rawConfigTempl, err = fs.ReadFile(configFS, "resources/kind.yaml.tmpl")
 	}
 
+	fmt.Println(string(rawConfigTempl))
 	if err != nil {
 		return []byte{}, err
 	}

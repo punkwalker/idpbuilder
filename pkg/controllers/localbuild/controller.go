@@ -60,6 +60,7 @@ func (r *LocalbuildReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 	// respecting order of installation matters as there are hard dependencies
 	subReconcilers := []subReconciler{
 		r.ReconcileProjectNamespace,
+		r.ReconcileAWSAgent,
 		r.ReconcileNginx,
 		r.ReconcileArgo,
 		r.ReconcileGitea,

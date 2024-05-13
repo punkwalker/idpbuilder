@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIRECTORIES='argo-cd gitea ingress-nginx'
+DIRECTORIES='argo-cd gitea ingress-nginx aws-agent'
 
 for dir in $DIRECTORIES; do
     ./hack/$dir/generate-manifests.sh;
