@@ -10,4 +10,4 @@ spec:
       - name: agent
         env:
         - name: ROLE_ARN
-          value: ""
+          value: "arn:aws:iam::259732043995:role/Admin"

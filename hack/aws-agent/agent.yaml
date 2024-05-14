@@ -36,9 +36,14 @@ spec:
         volumeMounts:
         - name: entrypoint-script
           mountPath: /scripts
+        - name: aws-creds
+          mountPath: /root/.aws/
       volumes:
       - name: entrypoint-script
         configMap:
           name: aws-agent-config
           defaultMode: 0744
+      - name: aws-creds
+        hostPath:
+          path: /root/.aws/
       terminationGracePeriodSeconds: 30
