@@ -1,3 +1,4 @@
+version: 2
 project_name: idpbuilder
 
 before:
@@ -17,9 +18,9 @@ builds:
       - amd64
       - arm64
     ldflags:
-      - -X github.com/cnoe-io/idpbuilder/pkg/cmd/version.idpbuilderVersion={{ .Version }}
-      - -X github.com/cnoe-io/idpbuilder/pkg/cmd/version.gitCommit={{ .FullCommit }}
-      - -X github.com/cnoe-io/idpbuilder/pkg/cmd/version.buildDate={{ .CommitDate }}
+      - -X github.com/punkwalker/idpbuilder/pkg/cmd/version.idpbuilderVersion={{ .Version }}
+      - -X github.com/punkwalker/idpbuilder/pkg/cmd/version.gitCommit={{ .FullCommit }}
+      - -X github.com/punkwalker/idpbuilder/pkg/cmd/version.buildDate={{ .CommitDate }}
       - -w
       - -s
     binary: idpbuilder
@@ -27,10 +28,24 @@ builds:
       - goos: linux
         goarch: '386'
 brews:
-  - name: idpbuilder
+  - name: "idpbuilder"
     homepage: "https://cnoe.io"
     repository:
-      owner: cnoe-io
+      owner: punkwalker
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TOKEN }}"
+    commit_author:
+      name: "CNOEAutomation"
+      email: "noreply@cnoe.io"
+    directory: Formula
+    install: |
+      bin.install "idpbuilder"
+    test: |
+      system "#{bin}/idpbuilder --version"
+  - name: "{{ if contains .Tag \"nightly\" }}idpbuilder@nightly{{ else }}idpbuilder@{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{ end }}"
+    homepage: "https://cnoe.io"
+    repository:
+      owner: punkwalker
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TOKEN }}"
     commit_author:
